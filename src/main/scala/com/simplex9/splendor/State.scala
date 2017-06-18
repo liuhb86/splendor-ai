@@ -4,7 +4,7 @@ package com.simplex9.splendor
   * Created by hongbo on 6/10/17.
   */
 case class State (
-                   cards : Array[Array[Card]],
+                   cards : Array[Array[VisibleCard]],
                    nobles : Array[Noble],
                    coins : Array[Byte],
                    golds : Byte,
@@ -24,7 +24,7 @@ case class State (
 
 
   def transform(action: Action) : State = {
-    val newCoions =
+    val newCoins =
       if (action.coins.isDefined)
         coins.zip(action.coins.get).map{case (count, delta) => (count - delta).toByte}
       else coins
@@ -34,13 +34,13 @@ case class State (
         nobles.filter(_ != action.noble.get)
       else nobles
     val newCards =
-      if (action.cardPosition.isDefined &&
-        action.cardPosition.get._1 >= 0 &&
-        action.cardPosition.get._2 >=0) {
-        val pos = action.cardPosition.get
-        Util.updateArray(cards, pos._1, (c : Array[Card]) => Util.updateArray(c, pos._2, null))
+      if (action.card.isDefined &&
+        !action.card.get.isReserved &&
+        !action.card.get.isInPile) {
+        val card = action.card.get
+        Util.updateArray(cards, card.group, (c : Array[VisibleCard]) => Util.updateArray(c, card.pos, null))
       } else cards
     val newPlayers = Util.updateArray(players, action.playerIndex, (p : Player) => p.transform(action, this))
-    State(newCards, newNobles, newCoions, newGold, newPlayers)
+    State(newCards, newNobles, newCoins, newGold, newPlayers)
   }
 }

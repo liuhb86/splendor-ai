@@ -8,7 +8,7 @@ case class Player (
                   coins : Array[Byte],
                   golds : Byte,
                   points : Byte,
-                  reserve : Array[Card]
+                  reserve : Array[VisibleCard]
                   )
 {
   def calcScore(state : State): Int = {
@@ -30,25 +30,21 @@ case class Player (
     val newGold = (golds + action.gold).toByte
     if (action.noble.isDefined) newPoints += Param.NOBLE_POINT
     val newCards =
-      if (action.cardPosition.isDefined && !action.reserve) {
-        val pos = action.cardPosition.get
-        val card =
-          if (pos._1 >= 0) state.cards(pos._1)(pos._2)
-          else reserve(pos._2)
+      if (action.card.isDefined && !action.reserve) {
+        val card = action.card.get
         newPoints += card.point
         Util.updateArray(cards, card.color.id, (c : Byte) => (c + 1).toByte)
       } else cards
     val newReserve =
-      if (action.cardPosition.isEmpty ||
-        (!action.reserve && action.cardPosition.get._1 >=0)) reserve
+      if (action.card.isEmpty ||
+        (!action.reserve && !action.card.get.isReserved)) reserve
       else {
-        val pos = action.cardPosition.get
+        val card = action.card.get
         if (action.reserve) {
-          val card = if (pos._2 >= 0) state.cards(pos._1)(pos._2) else null
-          reserve :+ card
+          reserve :+ card.reserve(reserve.length)
         } else {
           // buy reserved card
-          Util.deleteFromArray(reserve, pos._2)
+          Util.deleteFromArray(reserve, card.pos)
         }
       }
     Player(newCards, newCoions, newGold, newPoints, newReserve)

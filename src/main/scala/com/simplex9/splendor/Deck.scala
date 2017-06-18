@@ -3,7 +3,7 @@ import Color._
 /**
   * Created by hongbo on 6/17/17.
   */
-object Stock {
+object Deck {
   val nobles = Array(
     //    w,b,g,r,o
     Noble(4,4,0,0,0),

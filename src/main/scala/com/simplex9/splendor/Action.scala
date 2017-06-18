@@ -3,12 +3,12 @@ package com.simplex9.splendor
 /**
   * Created by hongbo on 6/10/17.
   */
-class Action(
-            val playerIndex : Int,
-            val coins: Option[Array[Byte]],
-            val gold: Byte,
-            val cardPosition : Option[(Byte, Byte,)],
-            val reserve: Boolean,
-            val noble : Option[Noble]
+case class Action(
+            playerIndex : Int,
+            coins: Option[Array[Byte]],
+            gold: Byte,
+            card : Option[VisibleCard],
+            reserve: Boolean,
+            noble : Option[Noble]
             ) {
 }

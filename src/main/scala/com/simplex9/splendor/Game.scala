@@ -17,8 +17,12 @@ class Game (val numPlayers: Int) {
       0,
       Array()
     )
+    val visibleCards = cards.zipWithIndex.map(cc => cc._1.zipWithIndex.map(c =>
+      new VisibleCard(c._1, cc._2, c._2)
+    ))
+
     state = State(
-      cards, nobles,
+      visibleCards, nobles,
         Seq.fill(Color.size)(numCoins.toByte).toArray,
       Param.NUM_GOLD,
       Seq.fill(numPlayers)(newPlayer).toArray

@@ -18,5 +18,7 @@ object Param {
   val COIN_VALUE = 20
   val GOLD_VALUE = 40
 
-  val RESERVE_RATE = Array(.9, .8, .5, .2, .1)
+  val OPPONENT_VALUE_RATE = 0.8
+  val VALUE_RATE = Array(.9, .8, .5, .2, .1)
+  val RESERVE_VALUE_RATE = Array(.95, .85, .7, .5, .2, .1)
 }

@@ -10,10 +10,12 @@ case class Card(
                point : Byte,
                price : Array[Byte]
                ) {
+  def isSecret = point < 0
 }
 
 object Card {
   def apply(color:Color, point: Byte,
             white:Byte, byte:Byte, green:Byte, red:Byte, onyx: Byte) =
     Card(color, point, Array(white, byte, green, red, onyx))
+  final val secretCard = Card(null, -1, null)
 }
