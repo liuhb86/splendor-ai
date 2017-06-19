@@ -9,6 +9,7 @@ class VisibleCard (card: Card,
   def isReserved = group < 0
   def isInPile = pos < 0
   def reserve(pos: Int) = new VisibleCard(card, -1, pos)
+  def getOffset = group * Param.NUM_CARD_EACH_LEVEL + pos
 }
 
 object VisibleCard {

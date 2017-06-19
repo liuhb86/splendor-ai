@@ -17,8 +17,9 @@ case class Player (
     }
 
     points * Param.POINT_VALUE +
-      (coins.sum + cards.sum) * Param.COIN_VALUE +
-    golds * Param.GOLD_VALUE
+      coins.sum * Param.COIN_VALUE +
+      cards.sum * Param.CARD_VALUE +
+      golds * Param.GOLD_VALUE
   }
 
   def transform(action: Action, state: State): Player = {
@@ -44,9 +45,20 @@ case class Player (
           reserve :+ card.reserve(reserve.length)
         } else {
           // buy reserved card
-          Util.deleteFromArray(reserve, card.pos)
+          removeReservedCard(card.pos)
         }
       }
     Player(newCards, newCoions, newGold, newPoints, newReserve)
+  }
+
+  def removeReservedCard(pos : Int) : Array[VisibleCard] = {
+    val newReserve = new Array[VisibleCard](reserve.length - 1)
+    for (i <- 0 until pos) {
+      newReserve(i) = reserve(i)
+    }
+    for (i<- pos + 1 until reserve.length) {
+      newReserve(i - 1) = reserve(i).reserve(i - 1)
+    }
+    newReserve
   }
 }

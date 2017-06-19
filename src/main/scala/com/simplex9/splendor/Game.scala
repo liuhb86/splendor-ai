@@ -17,7 +17,7 @@ class Game (val numPlayers: Int) {
       0,
       Array()
     )
-    val visibleCards = cards.zipWithIndex.map(cc => cc._1.zipWithIndex.map(c =>
+    val visibleCards = cards.zipWithIndex.flatMap(cc => cc._1.zipWithIndex.map(c =>
       new VisibleCard(c._1, cc._2, c._2)
     ))
 

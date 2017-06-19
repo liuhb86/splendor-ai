@@ -10,6 +10,8 @@ object Param {
   val NUM_GOLD : Byte = 5
   val NUM_CARD_LEVEL = 3
   val NUM_CARD_EACH_LEVEL = 4
+  val MAX_COIN = 10
+  val MAX_RESERVE = 3
 
   val INF = 1000000
 
@@ -17,6 +19,10 @@ object Param {
   val POINT_VALUE = 100
   val COIN_VALUE = 20
   val GOLD_VALUE = 40
+  val CARD_VALUE = 40
+
+  val TOP_CARDS_FOR_COIN_ESTIMATE = 3
+  val TOP_CARDS_FOR_RESERVE = 5
 
   val OPPONENT_VALUE_RATE = 0.8
   val VALUE_RATE = Array(.9, .8, .5, .2, .1)
