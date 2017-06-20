@@ -28,3 +28,17 @@ class CoinValueEstimator(state: State, player: Player, cardEstimator: CardValueE
     values
   }
 }
+
+object CoinValueEstimator {
+  def coinValueForPlayer(colorIndex : Int, playerIndex: Int,
+                         coinValueEstimators : Array[CoinValueEstimator]) : Int = {
+    var maxValue : Double = coinValueEstimators(playerIndex).values(colorIndex)
+    for (i <- coinValueEstimators.indices) {
+      if (i != playerIndex) {
+        val value = coinValueEstimators(i).values(colorIndex) * Param.OPPONENT_VALUE_RATE
+        if (value > maxValue) maxValue = value
+      }
+    }
+    maxValue.toInt
+  }
+}

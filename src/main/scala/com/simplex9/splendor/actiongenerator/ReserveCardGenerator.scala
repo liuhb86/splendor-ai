@@ -1,7 +1,7 @@
 package com.simplex9.splendor.actiongenerator
 
-import com.simplex9.splendor.{Action, Color, Param, State}
-import com.simplex9.splendor.valueestimator.{CardValueEstimator, ValueEstimator}
+import com.simplex9.splendor.valueestimator.{CardValueEstimator, CoinValueEstimator, ValueEstimator}
+import com.simplex9.splendor.{Action, Param, State}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -39,17 +39,12 @@ class ReserveCardGenerator(state: State, playerIndex: Int, estimators: Array[Val
       else {
         var dropColor = 0
         var leastValue = Param.INF
+        val coinValueEstimators = estimators.map(_.coinEstimator)
         for (color <- player.coins.indices) {
           if (player.coins(color) > 0) {
-            var maxValue = estimators(playerIndex).coinEstimator.values(color)
-            for (i <- estimators.indices) {
-              if (i != playerIndex) {
-                val value = estimators(i).coinEstimator.values(color) * Param.OPPONENT_VALUE_RATE
-                if (value > maxValue) maxValue = value
-              }
-            }
-            if (maxValue < leastValue) {
-              leastValue = maxValue
+            val value = CoinValueEstimator.coinValueForPlayer(color, playerIndex, coinValueEstimators)
+            if (value < leastValue) {
+              leastValue = value
               dropColor = color
             }
           }

@@ -12,6 +12,7 @@ object Param {
   val NUM_CARD_EACH_LEVEL = 4
   val MAX_COIN = 10
   val MAX_RESERVE = 3
+  val MIN_COIN_FOR_TAKE_TWO = 4
 
   val INF = 1000000
 
@@ -23,6 +24,7 @@ object Param {
 
   val TOP_CARDS_FOR_COIN_ESTIMATE = 3
   val TOP_CARDS_FOR_RESERVE = 5
+  val TOP_ACTIONS_FOR_TAKE_COIN = 6
 
   val OPPONENT_VALUE_RATE = 0.8
   val VALUE_RATE = Array(.9, .8, .5, .2, .1)
