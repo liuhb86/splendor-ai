@@ -10,7 +10,10 @@ import scala.collection.mutable.ArrayBuffer
   */
 object ActionGenerator {
 
-  def generate(state: State, playerIndex: Int) : List[Action] = {
+  def generate(state: State, playerIndex: Int, startPlayer: Int) : List[Action] = {
+    if (state.players.exists(_.points >= Param.WINNING_POINTS) && playerIndex == startPlayer) {
+      return Nil
+    }
     val estimators = state.players.map(new ValueEstimator(state, _))
     val actions =
       new BuyCardGenerator(state, playerIndex, estimators(playerIndex)).generate() ++
