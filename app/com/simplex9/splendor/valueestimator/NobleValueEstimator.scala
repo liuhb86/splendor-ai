@@ -26,8 +26,8 @@ class NobleValueEstimator(state: State, player: Player) {
       val totalLacks = lacks.sum
       if (totalLacks > 0) {
         val cardValue = Param.NOBLE_POINT * Param.POINT_VALUE / totalLacks
-        for (i<-values.length) {
-          if (lacks(i) > 0) values(i) += cardValue
+        for (i<-values.indices) {
+          if (lacks(i) > 0) values(i) = values(i) + cardValue
         }
       }
 
@@ -38,7 +38,7 @@ class NobleValueEstimator(state: State, player: Player) {
       satisfyBuf += (totalLacks == 0)
     }
 
-    for (i <- state.nobles.length) {
+    for (i <- state.nobles.indices) {
       lastColor(i) = lastColorBuf(i)
       satisfy(i) = satisfyBuf(i)
     }

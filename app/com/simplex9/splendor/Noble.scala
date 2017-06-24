@@ -12,5 +12,6 @@ case class Noble(
 }
 
 object Noble {
-  def apply(white:Byte, byte:Byte, green:Byte, red:Byte, onyx: Byte) = Noble(Array(white, byte, green, red, onyx))
+  def apply(white:Byte, byte:Byte, green:Byte, red:Byte, onyx: Byte) : Noble =
+    Noble(Array(white, byte, green, red, onyx))
 }

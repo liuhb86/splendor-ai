@@ -29,11 +29,11 @@ case class Player (
         coins.zip(action.coins.get).map{case (count, delta) => (count + delta).toByte}
       else coins
     val newGold = (golds + action.gold).toByte
-    if (action.noble.isDefined) newPoints += Param.NOBLE_POINT
+    if (action.noble.isDefined) newPoints = (newPoints + Param.NOBLE_POINT).toByte
     val newCards =
       if (action.card.isDefined && !action.reserve) {
         val card = action.card.get
-        newPoints += card.point
+        newPoints = (newPoints + card.point).toByte
         Util.updateArray(cards, card.color.id, (c : Byte) => (c + 1).toByte)
       } else cards
     val newReserve =

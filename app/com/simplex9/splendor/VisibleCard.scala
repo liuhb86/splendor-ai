@@ -13,6 +13,6 @@ class VisibleCard (card: Card,
 }
 
 object VisibleCard {
-  def newCardInPile(card: Card, group: Int) = new VisibleCard(card, group, -1)
-  def newCardInPile(group: Int) = newCardInPile(Card.secretCard, group)
+  def newCardInPile(card: Card, group: Int) :VisibleCard = new VisibleCard(card, group, -1)
+  def newCardInPile(group: Int) : VisibleCard= newCardInPile(Card.secretCard, group)
 }

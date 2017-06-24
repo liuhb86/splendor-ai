@@ -14,11 +14,11 @@ import play.filters.hosts.AllowedHostsFilter
  * https://www.playframework.com/documentation/latest/SecurityHeaders
  */
 class Filters @Inject() (
-  csrfFilter: CSRFFilter,
-  allowedHostsFilter: AllowedHostsFilter,
-  securityHeadersFilter: SecurityHeadersFilter
+  //csrfFilter: CSRFFilter,
+  //allowedHostsFilter: AllowedHostsFilter,
+  //securityHeadersFilter: SecurityHeadersFilter
 ) extends DefaultHttpFilters(
-  csrfFilter, 
-  allowedHostsFilter, 
-  securityHeadersFilter
+  //csrfFilter,
+  //allowedHostsFilter,
+  //securityHeadersFilter
 )

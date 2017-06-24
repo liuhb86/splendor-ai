@@ -15,7 +15,7 @@ case class Card(
 
 object Card {
   def apply(color:Color, point: Byte,
-            white:Byte, byte:Byte, green:Byte, red:Byte, onyx: Byte) =
+            white:Byte, byte:Byte, green:Byte, red:Byte, onyx: Byte) : Card =
     Card(color, point, Array(white, byte, green, red, onyx))
   final val secretCard = Card(null, -1, null)
 }

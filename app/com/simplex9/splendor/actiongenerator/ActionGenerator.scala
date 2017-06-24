@@ -25,7 +25,7 @@ object ActionGenerator {
 
   def checkFreeNoble(state: State, playerIndex: Int, estimators: Array[ValueEstimator], actions: List[Action]): List[Action] = {
     val freeNobles = ArrayBuffer[Int]()
-    for (i<- state.nobles.length) {
+    for (i<- state.nobles.indices) {
       if (estimators(playerIndex).nobleEstimator.satisfy(i)) freeNobles += i
     }
     if (freeNobles.isEmpty) return actions
