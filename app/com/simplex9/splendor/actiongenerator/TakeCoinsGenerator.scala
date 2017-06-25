@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[ValueEstimator]) {
   val player = state.players(playerIndex)
-  val zeroArray =  Seq.fill(Color.size)(0.toByte).toArray
+  val zeroArray =  Seq.fill(Color.size)(0.toShort).toArray
   val current = player.coins.sum
   val kinds = state.coins.count(_ > 0)
   val coinValueEstimators = estimators.map(_.coinEstimator)
@@ -30,7 +30,7 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     }
   }
 
-  def calculateValue(coins : Array[Byte]) : Int = {
+  def calculateValue(coins : Array[Short]) : Int = {
     var result = 0
     for (color <- coins.indices) {
       result += coinValues(color) * coins(color)
@@ -38,9 +38,9 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     result
   }
 
-  def takeThree() : List[Array[Byte]] = {
+  def takeThree() : List[Array[Short]] = {
     if (kinds < 3) return Nil
-    var result : List[Array[Byte]] = Nil
+    var result : List[Array[Short]] = Nil
     var colors = ArrayBuffer[Int]()
     for (color <- state.coins.indices) {
       if (state.coins(color) > 0) colors += color
@@ -48,7 +48,7 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     for (color1 <- 0 until colors.size -2) {
       for (color2 <- color1 until colors.size -1) {
         for (color3 <- color2 until colors.size) {
-          val t = Util.updateArray(zeroArray, colors(color1), 1.toByte)
+          val t = Util.updateArray(zeroArray, colors(color1), 1.toShort)
           t(colors(color2)) = 1
           t(colors(color3)) = 1
           result = t :: result
@@ -58,7 +58,7 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     result
   }
 
-  def takeTwo : List[Array[Byte]] = {
+  def takeTwo : List[Array[Short]] = {
     val result = takeTwoSame ++ takeTwoDiff
     if (current == Param.MAX_COIN)
       result.flatMap(returnTwo)
@@ -68,17 +68,17 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
       result
   }
 
-  def takeTwoDiff : List[Array[Byte]] = {
+  def takeTwoDiff : List[Array[Short]] = {
     if (current < Param.MAX_COIN - 2 && kinds != 2) return Nil
     if (kinds < 2) return Nil
-    var result : List[Array[Byte]] = Nil
+    var result : List[Array[Short]] = Nil
     var colors = ArrayBuffer[Int]()
     for (color <- state.coins.indices) {
       if (state.coins(color) > 0) colors += color
     }
     for (color1 <- 0 until colors.size -1) {
       for (color2 <- color1 until colors.size) {
-        val t = Util.updateArray(zeroArray, colors(color1), 1.toByte)
+        val t = Util.updateArray(zeroArray, colors(color1), 1.toShort)
         t(colors(color2)) = 1
         result = t :: result
       }
@@ -86,21 +86,21 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     result
   }
 
-  def takeTwoSame : List[Array[Byte]] = {
-    var result : List[Array[Byte]] = Nil
+  def takeTwoSame : List[Array[Short]] = {
+    var result : List[Array[Short]] = Nil
     for (color <- state.coins.indices) {
       if (state.coins(color) >= Param.MIN_COIN_FOR_TAKE_TWO)
-        result = Util.updateArray(zeroArray, color, 2.toByte) :: result
+        result = Util.updateArray(zeroArray, color, 2.toShort) :: result
     }
     result
   }
 
-  def returnTwo(coins: Array[Byte]) : List[Array[Byte]] = {
-    var result : List[Array[Byte]] = Nil
+  def returnTwo(coins: Array[Short]) : List[Array[Short]] = {
+    var result : List[Array[Short]] = Nil
     // return two same
     for (color <- coins.indices) {
       if (player.coins(color) >=2 && coins(color) == 0)
-        result = Util.updateArray(coins, color, (-2).toByte) :: result
+        result = Util.updateArray(coins, color, (-2).toShort) :: result
     }
     // return two different
     var colors = ArrayBuffer[Int]()
@@ -109,7 +109,7 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     }
     for (color1 <- 0 until colors.size -1) {
       for (color2 <- color1 until colors.size) {
-        val t = Util.updateArray(coins, colors(color1), (-1).toByte)
+        val t = Util.updateArray(coins, colors(color1), (-1).toShort)
         t(colors(color2)) = -1
         result = t :: result
       }
@@ -117,22 +117,22 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     result
   }
 
-  def takeOne : List[Array[Byte]] = {
+  def takeOne : List[Array[Short]] = {
     if (current < Param.MAX_COIN - 1 && kinds != 1) return Nil
     if (kinds < 1) return Nil
-    var result : List[Array[Byte]] = Nil
+    var result : List[Array[Short]] = Nil
     for (color <- state.coins.indices) {
       if (state.coins(color) > 0)
-        result = Util.updateArray(zeroArray, color, 1.toByte) :: result
+        result = Util.updateArray(zeroArray, color, 1.toShort) :: result
     }
     if (current == Param.MAX_COIN) result.flatMap(returnOne) else result
   }
 
-  def returnOne(coins : Array[Byte]) : List[Array[Byte]] = {
-    var result : List[Array[Byte]] = Nil
+  def returnOne(coins : Array[Short]) : List[Array[Short]] = {
+    var result : List[Array[Short]] = Nil
     for (color <- coins.indices) {
       if (player.coins(color) > 0 && coins(color) == 0)
-        result = Util.updateArray(coins, color, (-1).toByte) :: result
+        result = Util.updateArray(coins, color, (-1).toShort) :: result
     }
     result
   }

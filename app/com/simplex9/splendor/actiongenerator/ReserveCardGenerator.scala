@@ -49,13 +49,13 @@ class ReserveCardGenerator(state: State, playerIndex: Int, estimators: Array[Val
             }
           }
         }
-        val coins = new Array[Byte](player.coins.length)
+        val coins = new Array[Short](player.coins.length)
         coins(dropColor) = -1
         Some(coins)
       }
 
     topCards.sortWith(_.value > _.value).take(Param.TOP_CARDS_FOR_RESERVE).map(cardInfo =>
-      Action(playerIndex, coins, gold.toByte, Some(cardInfo.card), reserve = true, None)
+      Action(playerIndex, coins, gold.toShort, Some(cardInfo.card), reserve = true, None)
     ).toList
   }
 

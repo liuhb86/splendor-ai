@@ -13,11 +13,18 @@ var config = {
     filename: 'bundle.js'
   },
   module : {
-    loaders : [
+    rules : [
       {
         test : /\.jsx?/,
         include : APP_DIR,
-        loader : 'babel-loader'
+        use : {
+          loader : 'babel-loader',
+          options: {
+            plugins: ['transform-runtime', "transform-object-rest-spread", 
+              "transform-class-properties"],
+            presets: ['es2015', 'es2017', 'react'],
+          }
+        }
       }
     ]
   }

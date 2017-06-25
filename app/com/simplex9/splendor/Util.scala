@@ -28,4 +28,8 @@ object Util {
     for (i <- index + 1 until arr.length) newArray(i - 1) = arr(i)
     newArray
   }
+
+  def deleteLastFromArray[T : ClassTag](arr: Array[T]) : Array[T] = {
+    deleteFromArray(arr, arr.length -1)
+  }
 }

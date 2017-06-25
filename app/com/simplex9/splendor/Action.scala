@@ -5,8 +5,8 @@ package com.simplex9.splendor
   */
 case class Action(
             playerIndex : Int,
-            coins: Option[Array[Byte]],
-            gold: Byte,
+            coins: Option[Array[Short]],
+            gold: Short,
             card : Option[VisibleCard],
             reserve: Boolean,
             noble : Option[Noble]

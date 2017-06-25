@@ -28,12 +28,12 @@ class BuyCardGenerator(state : State, playerIndex: Int, estimator: ValueEstimato
     // cannot afford
     if (cardValue.lack >= player.golds) return None
 
-    val coins = new Array[Byte](card.price.length)
+    val coins = new Array[Short](card.price.length)
     for (color <- card.price.indices) {
       coins(color) =
-        (-Math.min(player.coins(color), Math.max(card.price(color) - player.cards(color), 0))).toByte
+        (-Math.min(player.coins(color), Math.max(card.price(color) - player.cards(color), 0))).toShort
     }
     val noble = checkNobles(state.nobles, card.color)
-    Some(Action(playerIndex, Some(coins), (-cardValue.lack).toByte, Some(card), reserve = false, noble))
+    Some(Action(playerIndex, Some(coins), (-cardValue.lack).toShort, Some(card), reserve = false, noble))
   }
 }

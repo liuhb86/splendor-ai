@@ -7,15 +7,15 @@ import com.simplex9.splendor.Color.Color
   */
 case class Card(
                color : Color,
-               point : Byte,
-               price : Array[Byte]
+               point : Short,
+               price : Array[Short]
                ) {
   def isSecret = point < 0
 }
 
 object Card {
-  def apply(color:Color, point: Byte,
-            white:Byte, byte:Byte, green:Byte, red:Byte, onyx: Byte) : Card =
+  def apply(color:Color, point: Short,
+            white:Short, byte:Short, green:Short, red:Short, onyx: Short) : Card =
     Card(color, point, Array(white, byte, green, red, onyx))
   final val secretCard = Card(null, -1, null)
 }

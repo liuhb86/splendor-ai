@@ -6,8 +6,8 @@ package com.simplex9.splendor
 case class State (
                    cards : Array[VisibleCard],
                    nobles : Array[Noble],
-                   coins : Array[Byte],
-                   golds : Byte,
+                   coins : Array[Short],
+                   golds : Short,
                    players: Array[Player]
                  )
 {
@@ -26,9 +26,9 @@ case class State (
   def transform(action: Action) : State = {
     val newCoins =
       if (action.coins.isDefined)
-        coins.zip(action.coins.get).map{case (count, delta) => (count - delta).toByte}
+        coins.zip(action.coins.get).map{case (count, delta) => (count - delta).toShort}
       else coins
-    val newGold = (golds - action.gold).toByte
+    val newGold = (golds - action.gold).toShort
     val newNobles =
       if (action.noble.isDefined)
         nobles.filter(_ != action.noble.get)

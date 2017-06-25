@@ -4,10 +4,10 @@ package com.simplex9.splendor
   * Created by hongbo on 6/10/17.
   */
 case class Player (
-                  cards : Array[Byte],
-                  coins : Array[Byte],
-                  golds : Byte,
-                  points : Byte,
+                  cards : Array[Short],
+                  coins : Array[Short],
+                  golds : Short,
+                  points : Short,
                   reserve : Array[VisibleCard]
                   )
 {
@@ -26,15 +26,15 @@ case class Player (
     var newPoints = points
     val newCoions =
       if (action.coins.isDefined)
-        coins.zip(action.coins.get).map{case (count, delta) => (count + delta).toByte}
+        coins.zip(action.coins.get).map{case (count, delta) => (count + delta).toShort}
       else coins
-    val newGold = (golds + action.gold).toByte
-    if (action.noble.isDefined) newPoints = (newPoints + Param.NOBLE_POINT).toByte
+    val newGold = (golds + action.gold).toShort
+    if (action.noble.isDefined) newPoints = (newPoints + Param.NOBLE_POINT).toShort
     val newCards =
       if (action.card.isDefined && !action.reserve) {
         val card = action.card.get
-        newPoints = (newPoints + card.point).toByte
-        Util.updateArray(cards, card.color.id, (c : Byte) => (c + 1).toByte)
+        newPoints = (newPoints + card.point).toShort
+        Util.updateArray(cards, card.color.id, (c : Short) => (c + 1).toShort)
       } else cards
     val newReserve =
       if (action.card.isEmpty ||
