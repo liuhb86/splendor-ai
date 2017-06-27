@@ -1,0 +1,141 @@
+.WHITE {
+    background-color: white;
+}
+
+.BLUE {
+    background-color: blue;
+}
+
+.GREEN {
+    background-color: green;
+}
+
+.RED {
+    background-color: red;
+}
+
+.ONYX {
+    background-color: black;
+    border-color: darkgrey !important;
+}
+
+.YELLOW {
+    background-color: yellow; 
+}
+
+.WHITE,.BLUE,.GREEN,.RED,.ONYX,.YELLOW {
+    border: solid 1px black;
+}
+
+.price {
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-align: center;
+}
+
+.points {
+    color: white;
+    font-size: 40px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-align: right;
+    right: 5px;
+    top: 5px;
+    position: absolute;
+}
+
+.noble-area {
+    display: flex;
+}
+
+.noble {
+    width: 100px;
+    height: 100px;
+    border: solid 2px black;
+    background-color: grey;
+    margin: 3px;
+    position: relative;
+}
+
+.noble-card {
+    width: 15px;
+    height: 20px;
+}
+
+.noble-cards {
+    bottom: 3px;
+    left: 3px;
+    position: absolute;
+}
+
+.coin-area{
+    display: flex;
+}
+
+.bank-coin {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    color: white;
+    font-size: 40px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-align: center;
+}
+
+.bank-coin-wrapper {
+    margin: 3px;
+}
+
+.card-row {
+    display: flex;
+}
+
+.card-wrapper {
+    margin: 3px;
+}
+
+.card {
+    height: 150px;
+    width: 120px;
+    border: solid 2px black;
+    position: relative;
+}
+
+.card-pile {
+    background-color : lightgrey;
+    font-size: 40px;
+    color: black;
+    text-align: center;
+}
+.card-pile span {
+    line-height: 100px;
+}
+
+.card-coin {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.card-coins {
+    bottom: 3px;
+    left: 3px;
+    position: absolute;
+}
+
+.little-card-color {
+    width : 10px;
+    height: 10px;
+    display: inline-block;
+}
+
+.little-coin-color {
+    width : 10px;
+    height: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.player {
+    height: 25%;
+    border: dotted 1px lightgrey
+}

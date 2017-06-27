@@ -5,12 +5,14 @@ import SplendorApp from './components/SplendorApp.jsx'
 
 function renderApp() { 
     render(
-        <SplendorApp state={store.getState()}/>,
+        <SplendorApp game={store.getState()}/>,
     document.getElementById('react-root')
     )
 }
 
 store.subscribe(renderApp)
-renderApp()
+//renderApp()
+import * as Request from './request'
+Request.send("init", {players: 3, autoMode: true})
 
 export {store}
