@@ -7,7 +7,8 @@ export default class PlayerArea extends React.Component {
       <div className="player-area">
         {
           this.props.players.map((player, index)=> (
-            <Player key={index} index={index} player={this.props.players[index]} />
+            <Player key={index} index={index} player={this.props.players[index]} 
+              active={this.props.turn==index} />
           ))
         }
       </div>

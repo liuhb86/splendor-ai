@@ -19,7 +19,7 @@ export default class GameBoard extends React.Component {
                 </div>
                 <CardArea cards={state.cards} remains={game.cardPile.size} player={player} />
             </div>
-            <PlayerArea players={state.players}/>
+            <PlayerArea players={state.players} turn={game.turn}/>
         </div>
     );
   }

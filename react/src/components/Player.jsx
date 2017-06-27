@@ -1,8 +1,10 @@
 import React from 'react'
 import {sum} from '../util'
+import classNames from 'classnames'
 import LittleCardCount from './LittleCardCount.jsx'
 import LittleCoins from './LittleCoins.jsx'
 import LittleCard from './LittleCard.jsx'
+import * as Request from '../request'
 
 class ReservedCard extends React.Component {
   render() {
@@ -16,12 +18,19 @@ class ReservedCard extends React.Component {
 }
 
 export default class Player extends React.Component {
+
   render() {
     let player = this.props.player
     let totalCoins = sum(player.coins) + player.golds
     return (
-      <div className="player">
-        <div> Player&nbsp;{this.props.index}</div>
+      <div className={classNames("player", {"active-player" : this.props.active})} >
+        <div> Player&nbsp;{this.props.index} 
+          { this.props.active &&
+            <span>&nbsp;&nbsp;
+              <button onClick={this.pass}>Pass</button>
+            </span>
+          }
+        </div>
         <div>
           <b>VP:{player.points}&nbsp;</b>
           <span>
@@ -46,5 +55,9 @@ export default class Player extends React.Component {
         </div>
       </div>
     )
+  }
+
+  pass = (e) => {
+    Request.send("pass",{})
   }
 }

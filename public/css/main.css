@@ -139,3 +139,7 @@
     height: 25%;
     border: dotted 1px lightgrey
 }
+
+.active-player {
+    background-color: lightgoldenrodyellow
+}

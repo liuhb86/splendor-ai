@@ -27,9 +27,9 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
       for (j <- 0 until Param.NUM_CARD_EACH_LEVEL) {
         var card : VisibleCard = null
         if (autoMode) {
-          val (nextCard, newPile) = cardPile.take(i)
+          val (nextCard, newPile) = cardPile.take(i, j)
           cardPile = newPile
-          card = new VisibleCard(nextCard, i, j)
+          card = nextCard
         }
         cards += card
       }
@@ -62,6 +62,32 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
       Seq.fill(numPlayers)(newPlayer).toArray
     )
   }
+
+  def pass() = {
+    this.turn = (this.turn + 1) % this.numPlayers
+  }
+
+  def takeAction(action: Action) = {
+    var adjustedAction = action
+    if (autoMode && action.card.isDefined && action.card.get.isInPile) {
+      val oldCard = action.card.get
+      val (card, newPile) = cardPile.take(oldCard.group, oldCard.pos)
+      cardPile = newPile
+      adjustedAction = Action(action.playerIndex, action.coins, action.gold,
+        Option(card), action.reserve, action.noble)
+    }
+    state = state.transform(adjustedAction)
+    if (autoMode && action.card.isDefined) {
+      val card = action.card.get
+      if (!(card.isInPile || card.isReserved)) {
+        val (newCard, newPile) = cardPile.take(card.group, card.pos)
+        cardPile = newPile
+        state = state.setCard(newCard)
+      }
+    }
+  }
+
+
 }
 
 object Game{

@@ -15,10 +15,11 @@ class VisibleCard (card: Card,
   def isInPile = pos < 0
   def reserve(pos: Int) = new VisibleCard(card, -1, pos)
   @JsonIgnore
-  def getOffset = group * Param.NUM_CARD_EACH_LEVEL + pos
+  def getOffset = VisibleCard.getOffset(group, pos)
 }
 
 object VisibleCard {
   def newCardInPile(card: Card, group: Int) :VisibleCard = new VisibleCard(card, group, -1)
   def newCardInPile(group: Int) : VisibleCard= newCardInPile(Card.secretCard, group)
+  def getOffset(group : Int, pos : Int) : Int = group * Param.NUM_CARD_EACH_LEVEL + pos
 }

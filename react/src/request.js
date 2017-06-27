@@ -16,3 +16,7 @@ export function send(endpoint, data) {
             }}
     })
 }
+
+export function sendAction(action) {
+    send("action", action)
+}

@@ -9,3 +9,5 @@
 GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 POST    /init                controllers.GameController.init
+POST    /pass                controllers.GameController.pass
+POST    /action              controllers.GameController.action

@@ -7,10 +7,10 @@ import scala.util.Random
   */
 class CardPile(cards : Array[Array[Card]]) {
   def getSize = cards.map(_.length)
-  def take(i: Int) : (Card, CardPile) = {
-    if (cards(i).isEmpty) return (null, this)
-    val card = cards(i).last
-    val newCards = Util.updateArray(cards, i, (t : Array[Card])=> Util.deleteLastFromArray(t))
+  def take(group: Int, index: Int) : (VisibleCard, CardPile) = {
+    if (cards(group).isEmpty) return (null, this)
+    val card = new VisibleCard(cards(group).last, group, index)
+    val newCards = Util.updateArray(cards, group, (t : Array[Card])=> Util.deleteLastFromArray(t))
     (card, new CardPile(newCards))
   }
 }

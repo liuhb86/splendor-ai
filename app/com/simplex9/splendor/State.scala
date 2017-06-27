@@ -43,4 +43,9 @@ case class State (
     val newPlayers = Util.updateArray(players, action.playerIndex, (p : Player) => p.transform(action, this))
     State(newCards, newNobles, newCoins, newGold, newPlayers)
   }
+
+  def setCard(newCard: VisibleCard): State = {
+    val newCards = Util.updateArray(cards, newCard.getOffset, newCard)
+    State(newCards, nobles, coins, golds, players)
+  }
 }
