@@ -16,6 +16,7 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
 
   var state : State = initState()
 
+
   def initPile() : CardPile = {
     if (!autoMode) return null
     CardPile.shuffle()
@@ -63,11 +64,31 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
     )
   }
 
+  def checkNop() = {
+    if (actionList == Nil || actionList.head.playerIndex != turn) {
+      addAction(Action(turn, None, 0, None, reserve = false, None))
+    }
+  }
+
   def pass() = {
+    checkNop
     this.turn = (this.turn + 1) % this.numPlayers
   }
 
-  def takeAction(action: Action) = {
+  def checkCollapsable(action : Action): Boolean = {
+    if (actionList == Nil || actionList.head.playerIndex != action.playerIndex) return true
+    val head = actionList.head
+    if (action.noble.isDefined && head.noble.isDefined) return false
+    if (action.card.isDefined && head.card.isDefined) return false
+    if (action.card.isDefined) {
+      if (head.gold > 0) return false
+      if (head.coins.isDefined && head.coins.get.exists(_ > 0)) return false
+    }
+    true
+  }
+
+  def takeAction(action: Action) : Unit = {
+    if (!checkCollapsable(action)) throw new IllegalAccessException("invalid action")
     var adjustedAction = action
     if (autoMode && action.card.isDefined && action.card.get.isInPile) {
       val oldCard = action.card.get
@@ -85,9 +106,28 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
         state = state.setCard(newCard)
       }
     }
-    actionList = action :: actionList
+    addAction(adjustedAction)
   }
 
+  def collpaseAction(action: Action, head: Action) = {
+    val coins =
+      if (action.coins.isEmpty) head.coins
+      else if (head.coins.isEmpty) action.coins
+      else Some(action.coins.get.zip(head.coins.get).map(t => (t._1 + t._2).toShort))
+    val card = if (action.card.isDefined) action.card else head.card
+    val noble = if (action.noble.isDefined) action.noble else head.noble
+    Action(action.playerIndex, coins, (action.gold + head.gold).toShort,
+      card, action.reserve || head.reserve, noble)
+  }
+
+  def addAction(action: Action) = {
+    if (actionList == Nil || actionList.head.playerIndex != action.playerIndex) {
+      actionList = action :: actionList
+    } else {
+      val collapsedAction= collpaseAction(action, actionList.head)
+      actionList = collapsedAction :: actionList.tail
+    }
+  }
 
 }
 

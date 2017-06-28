@@ -28,7 +28,7 @@ export function sendBuyAction(card, group, index, player) {
     for (var i in coins) {
         let require = Math.max(card.price[i] - player.cards[i], 0)
         coins[i] = -Math.min(require, player.coins[i])
-        lack += Math.max(require - player.coins[i])  
+        lack += Math.max(require - player.coins[i], 0)  
     }
     sendAction({
         coins: coins,

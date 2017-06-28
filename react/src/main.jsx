@@ -6,7 +6,7 @@ import SplendorApp from './components/SplendorApp.jsx'
 
 function renderApp() { 
     render(
-        <SplendorApp game={store.getState()}/>,
+        <SplendorApp state={store.getState()}/>,
     document.getElementById('react-root')
     )
 }

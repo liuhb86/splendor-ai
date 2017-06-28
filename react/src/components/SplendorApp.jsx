@@ -5,12 +5,15 @@ import ActionList from './ActionList.jsx'
 
 export default class SplendorApp extends React.Component {
   render () {
-    let game = this.props.game
-    if (game == null) return (<SetupForm />)
+    if (this.props.state == null) return (<SetupForm />)
+    let game = this.props.state.game
     return (
       <div style={{display:"flex"}}>
         <GameBoard game={game}/>
-        <ActionList actions={game.actionList} />
+        <div>
+          <div> {this.props.state.message} </div>
+          <ActionList actions={game.actionList} />
+        </div>
       </div>
     );
   }

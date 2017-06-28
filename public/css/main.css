@@ -163,7 +163,7 @@
     margin: 3px;
     margin-left: 20px;
     overflow-y: scroll;
-    max-height: 90vh;
+    height: 95vh;
     min-width: 100px;
     border: solid 1px darkgrey;
 }

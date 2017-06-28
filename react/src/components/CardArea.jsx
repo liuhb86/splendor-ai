@@ -7,7 +7,8 @@ class CardRow extends React.Component {
     return (
       <div className="card-row">
         <CardPile group={this.props.group} 
-          remains={this.props.remains} reservable={this.props.reservable} />
+          remains={this.props.remains} reservable={this.props.reservable}
+          hasGold={this.props.hasGold} />
         {
           this.props.cards.map((card, index)=> (
             <Card key={index} group={this.props.group} index={index}
