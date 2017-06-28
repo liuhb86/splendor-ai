@@ -8,7 +8,7 @@ class LittleCoin extends React.Component {
     if (this.props.skipZero && count==0) return null
     let colorClass = toColorClass(this.props.color)
     return(
-      <span>
+      <span className="little-coin">
         <span className={classNames("little-coin-color", colorClass)} />{count}&nbsp; 
       </span>
     )

@@ -12,7 +12,7 @@ class CardRow extends React.Component {
           this.props.cards.map((card, index)=> (
             <Card key={index} group={this.props.group} index={index}
               card={this.props.cards[index]} player={this.props.player} 
-              reservable={this.props.reservable} />
+              reservable={this.props.reservable} hasGold={this.props.hasGold} />
           ))
         }
       </div>
@@ -28,7 +28,7 @@ export default class CardArea extends React.Component {
       let cards = this.props.cards.slice(i*4, i*4+4)
       rows.push(
         <CardRow key={i} group={i} cards={cards} remains={this.props.remains[i]}
-          player={this.props.player} reservable={reservable}/>
+          player={this.props.player} reservable={reservable} hasGold={this.props.hasGold}/>
       )
     }
     return (<div className="card-area">{rows}</div>);

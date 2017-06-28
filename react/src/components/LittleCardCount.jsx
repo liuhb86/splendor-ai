@@ -7,7 +7,7 @@ export default class LittleCardCount extends React.Component {
     if (this.props.skipZero && this.props.count==0) return null
     let colorClass = this.props.colorClass || toColorClass(this.props.color)
     return(
-      <span>
+      <span className="little-card-count">
         <span className={classNames("little-card-color", colorClass)} />{this.props.count}&nbsp; 
       </span>
     )

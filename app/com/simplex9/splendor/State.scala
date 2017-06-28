@@ -38,7 +38,7 @@ case class State (
         !action.card.get.isReserved &&
         !action.card.get.isInPile) {
         val card = action.card.get
-        Util.updateArray(cards, card.getOffset, null)
+        Util.updateArray(cards, card.getOffset, null.asInstanceOf[VisibleCard])
       } else cards
     val newPlayers = Util.updateArray(players, action.playerIndex, (p : Player) => p.transform(action, this))
     State(newCards, newNobles, newCoins, newGold, newPlayers)

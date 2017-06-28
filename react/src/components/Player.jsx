@@ -1,5 +1,5 @@
 import React from 'react'
-import {sum} from '../util'
+import {sum, canAfford} from '../util'
 import classNames from 'classnames'
 import LittleCardCount from './LittleCardCount.jsx'
 import LittleCoins from './LittleCoins.jsx'
@@ -11,9 +11,20 @@ class ReservedCard extends React.Component {
     return (
       <div>
         <span>R{this.props.index}&nbsp;</span>
-        <LittleCard card={this.props.card} />
+        { (this.props.card) ?
+          (<LittleCard card={this.props.card} />) :
+          (<div>???</div>)
+        }
+        {
+          canAfford(this.props.card, this.props.player) &&
+          <button onClick={this.buy}>Buy</button>
+        }
       </div>
     )
+  }
+
+  buy = (e) => {
+    Request.sendBuyAction(this.props.card, -1, this.props.index, this.props.player)
   }
 }
 

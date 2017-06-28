@@ -11,8 +11,8 @@ function renderApp() {
 }
 
 store.subscribe(renderApp)
-//renderApp()
+renderApp()
 import * as Request from './request'
-Request.send("init", {players: 3, autoMode: true})
+//Request.send("init", {players: 3, autoMode: true})
 
 export {store}
