@@ -14,12 +14,16 @@ export default class BankCoin extends React.Component {
         </div>
         <div>
           { canTake && 
-            <button onClick={this.takeCoin}>Take</button>
+            <button onClick={this.takeCoin} title="Take">
+                <span className="icon-plus" />
+            </button>
           }
         </div>
         <div>
           { this.props.canReturn &&
-            <button onClick={this.returnCoin}>Return</button>
+            <button onClick={this.returnCoin} title="Return">
+              <span className="icon-minus" />
+            </button>
           }
         </div>
       </div>

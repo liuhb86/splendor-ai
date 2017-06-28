@@ -85,6 +85,7 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
         state = state.setCard(newCard)
       }
     }
+    actionList = action :: actionList
   }
 
 

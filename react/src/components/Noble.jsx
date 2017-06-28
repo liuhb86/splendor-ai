@@ -35,7 +35,9 @@ export default class Noble extends React.Component {
             <div className="points">3</div>
             <div className="card-actions">
                 { satisfy &&
-                    <button onClick={this.take}>Take</button>
+                    <button onClick={this.take} title="Take">
+                        <span className="icon-plus" />
+                    </button>
                 }
             </div>
         </div>

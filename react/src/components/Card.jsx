@@ -31,11 +31,15 @@ export default class Card extends React.Component {
             <div className="points">{card.point}</div>
             <div className="card-actions">
                 {affordable &&
-                    <button onClick={this.buy}>Buy</button>
+                    <button onClick={this.buy} title="Buy">
+                        <span className="icon-cart" />
+                    </button>
                 }
                 {
                     this.props.reservable &&
-                    <button onClick={this.reserve}>Reserve</button>
+                    <button onClick={this.reserve} title="Reserve">
+                        <span className="icon-lock" />
+                    </button>
                 }
             </div>
         </div>

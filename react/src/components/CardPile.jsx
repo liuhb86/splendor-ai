@@ -7,11 +7,15 @@ export default class CardPile extends React.Component {
   render () {
     return (
         <div className="card card-pile">
-            <span>{this.props.remains}</span>
+            <div className="remaining-cards">
+                <span>{this.props.remains}</span>
+            </div>
             <div className="card-actions">
               {
                   this.props.reservable && this.props.remains > 0 &&
-                  <button onClick={this.reserve}>Reserve</button>
+                  <button onClick={this.reserve} title="Reserve">
+                        <span className="icon-lock" />
+                  </button>
               }
             </div>   
         </div>

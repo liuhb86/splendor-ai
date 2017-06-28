@@ -1,5 +1,6 @@
 .WHITE {
     background-color: white;
+    border-color : lightgrey !important;
 }
 
 .BLUE {
@@ -99,12 +100,15 @@
 
 .card-pile {
     background-color : lightgrey;
+}
+
+.remaining-cards {
     font-size: 40px;
     color: black;
     text-align: center;
-}
-.card-pile span {
-    line-height: 100px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .card-coin {

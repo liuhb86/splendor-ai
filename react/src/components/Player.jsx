@@ -10,14 +10,16 @@ class ReservedCard extends React.Component {
   render() {
     return (
       <div>
-        <span>R{this.props.index}&nbsp;</span>
+        <span><span className="icon-lock"/>{this.props.index}&nbsp;</span>
         { (this.props.card) ?
           (<LittleCard card={this.props.card} />) :
           (<div>???</div>)
         }
         {
           canAfford(this.props.card, this.props.player) &&
-          <button onClick={this.buy}>Buy</button>
+          <button onClick={this.buy}title="Buy">
+            <span className="icon-cart" />
+          </button>
         }
       </div>
     )
@@ -35,15 +37,17 @@ export default class Player extends React.Component {
     let totalCoins = sum(player.coins) + player.golds
     return (
       <div className={classNames("player", {"active-player" : this.props.active})} >
-        <div> Player&nbsp;{this.props.index} 
+        <div> <span className="icon-user"/>Player&nbsp;{this.props.index} 
           { this.props.active &&
             <span>&nbsp;&nbsp;
-              <button onClick={this.pass}>Pass</button>
+              <button onClick={this.pass} title="Pass">
+                <span className="icon-arrow-down" />
+              </button>
             </span>
           }
         </div>
         <div>
-          <b>VP:{player.points}&nbsp;</b>
+          <b><span className="icon-star-empty" />{player.points}&nbsp;</b>
           <span>
             {
               player.cards.map((count, index) =>(
@@ -53,7 +57,7 @@ export default class Player extends React.Component {
           </span>
         </div>
         <div>
-          <span>#C:{totalCoins}&nbsp;</span>
+          <span><span className="icon-coin-euro"/>{totalCoins}&nbsp;</span>
           <LittleCoins coins={player.coins} golds={player.golds} />
         </div>
         <div>
