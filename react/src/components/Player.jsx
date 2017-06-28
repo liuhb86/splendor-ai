@@ -1,10 +1,11 @@
 import React from 'react'
 import {sum, canAfford} from '../util'
 import classNames from 'classnames'
-import LittleCardCount from './LittleCardCount.jsx'
+import LittleCardCounts from './LittleCardCounts.jsx'
 import LittleCoins from './LittleCoins.jsx'
 import LittleCard from './LittleCard.jsx'
 import * as Request from '../request'
+import settings from '../settings'
 
 class ReservedCard extends React.Component {
   render() {
@@ -37,7 +38,7 @@ export default class Player extends React.Component {
     let totalCoins = sum(player.coins) + player.golds
     return (
       <div className={classNames("player", {"active-player" : this.props.active})} >
-        <div> <span className="icon-user"/>Player&nbsp;{this.props.index} 
+        <div> <span className="icon-user"/>{settings.playerNames[this.props.index]}
           { this.props.active &&
             <span>&nbsp;&nbsp;
               <button onClick={this.pass} title="Pass">
@@ -48,13 +49,7 @@ export default class Player extends React.Component {
         </div>
         <div>
           <b><span className="icon-star-empty" />{player.points}&nbsp;</b>
-          <span>
-            {
-              player.cards.map((count, index) =>(
-                <LittleCardCount key={index} color={index} count={count} />
-              ))
-            }
-          </span>
+          <LittleCardCounts cards={player.cards} />
         </div>
         <div>
           <span><span className="icon-coin-euro"/>{totalCoins}&nbsp;</span>

@@ -158,3 +158,21 @@
 .active-player {
     background-color: lightgoldenrodyellow;
 }
+
+.action-list {
+    margin: 3px;
+    margin-left: 20px;
+    overflow-y: scroll;
+    max-height: 90vh;
+    min-width: 100px;
+    border: solid 1px darkgrey;
+}
+
+.action-list-item {
+    border-top: dotted 1px grey;
+    border-bottom: dotted 1px grey;
+}
+
+.action-list-item.band {
+    background: lightgrey;
+}

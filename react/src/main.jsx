@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import store from './store'
+import settings from './settings'
 import SplendorApp from './components/SplendorApp.jsx'
 
 function renderApp() { 
@@ -15,4 +16,4 @@ renderApp()
 import * as Request from './request'
 //Request.send("init", {players: 3, autoMode: true})
 
-export {store}
+export {store, settings}

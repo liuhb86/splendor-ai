@@ -19,7 +19,7 @@ export default class LittleCoins extends React.Component {
   render() {
     return(
       <span>
-        {
+        { this.props.coins &&
           this.props.coins.map((count, index) =>(
             <LittleCoin key={index} color={index} count={count} skipZero={this.props.skipZero}/>
           ))

@@ -7,7 +7,7 @@ import LittleCoins from './LittleCoins.jsx'
 export default class LittleCard extends React.Component {
   render() {
     let card = this.props.card
-    if (!card) return (<span>???</span>)
+    if (!card || card.point < 0) return (<span>???</span>)
     return(
       <span>
         <LittleCardCount colorClass={card.color.value} count={card.point} />
