@@ -13,3 +13,4 @@ POST    /init                controllers.GameController.init
 POST    /pass                controllers.GameController.pass
 POST    /action              controllers.GameController.action
 POST    /solve               controllers.GameController.solve
+POST    /undo                controllers.GameController.undo

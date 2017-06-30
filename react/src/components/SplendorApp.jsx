@@ -1,7 +1,7 @@
 import React from 'react'
 import SetupForm from './SetupForm.jsx'
 import GameBoard from './GameBoard.jsx'
-import ActionList from './ActionList.jsx'
+import ActionPanel from './ActionPanel.jsx'
 
 export default class SplendorApp extends React.Component {
   render () {
@@ -10,10 +10,7 @@ export default class SplendorApp extends React.Component {
     return (
       <div style={{display:"flex"}}>
         <GameBoard game={game}/>
-        <div>
-          <div> {this.props.state.message} </div>
-          <ActionList actions={game.actionList} />
-        </div>
+        <ActionPanel actions={game.actionList} message={this.props.state.message}/>
       </div>
     );
   }

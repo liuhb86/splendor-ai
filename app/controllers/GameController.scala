@@ -49,4 +49,9 @@ class GameController extends Controller {
     }
   }
 
+  def undo() = Action(BodyParsers.parse.tolerantText) { r =>
+    Game.game.undo()
+    val response = GameResponse(Game.game).serialize()
+    Ok(response)
+  }
 }

@@ -166,9 +166,13 @@
     background-color: lightgoldenrodyellow;
 }
 
-.action-list {
+.action-panel {
     margin: 3px;
     margin-left: 20px;
+}
+
+.action-list {
+ 
     overflow-y: scroll;
     height: 95vh;
     min-width: 100px;

@@ -1,5 +1,7 @@
 package com.simplex9.splendor
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
@@ -15,6 +17,9 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
   var cardPile : CardPile = initPile()
 
   var state : State = initState()
+
+  @JsonIgnore
+  var undoStates : List[(State, CardPile)] = (state, cardPile) :: Nil
 
 
   def initPile() : CardPile = {
@@ -120,13 +125,24 @@ class Game (val numPlayers: Int, autoMode: Boolean) {
       card, action.reserve || head.reserve, noble)
   }
 
-  def addAction(action: Action) = {
+  def addAction(action: Action) : Unit = {
     if (actionList == Nil || actionList.head.playerIndex != action.playerIndex) {
       actionList = action :: actionList
+      undoStates = (state, cardPile) :: undoStates
     } else {
       val collapsedAction= collpaseAction(action, actionList.head)
       actionList = collapsedAction :: actionList.tail
+      undoStates = (state, cardPile) :: undoStates.tail
     }
+  }
+
+  def undo() : Unit = {
+    if (actionList.isEmpty) return
+    turn = actionList.head.playerIndex
+    actionList = actionList.tail
+    undoStates = undoStates.tail
+    state = undoStates.head._1
+    cardPile = undoStates.head._2
   }
 
 }
