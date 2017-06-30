@@ -9,9 +9,9 @@ import scala.collection.mutable.ArrayBuffer
   * Created by hongbo on 6/18/17.
   */
 class NobleValueEstimator(state: State, player: Player) {
-  val values = estimate()
   val lastColor = new Array[Option[Color.Color]](state.nobles.length)
   val satisfy = new Array[Boolean](state.nobles.length)
+  val values = estimate()
 
   def estimate() = {
     val lastColorBuf = ArrayBuffer[Option[Color.Color]]()

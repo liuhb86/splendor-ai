@@ -22,6 +22,8 @@ case class Player (
       golds * Param.GOLD_VALUE
   }
 
+  def coinCount = coins.sum + golds
+
   def transform(action: Action, state: State): Player = {
     var newPoints = points
     val newCoions =
