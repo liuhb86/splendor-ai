@@ -56,7 +56,7 @@
     position: relative;
 }
 
-.noble-card {
+.noble .card-count {
     width: 15px;
     height: 20px;
 }
@@ -112,9 +112,10 @@
 }
 
 .card-coin {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    font-size: 20px;
 }
 
 .card-coins {
@@ -150,9 +151,15 @@
     border: dotted 1px grey;
 }
 
+.player-area {
+    margin-left: 50px;
+    margin-right: 20px;
+}
+
 .player {
     height: 25%;
     border: dashed 1px lightgrey;
+    font-size: 18px;
 }
 
 .active-player {

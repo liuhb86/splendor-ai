@@ -52,11 +52,11 @@ export default class Player extends React.Component {
         </div>
         <div>
           <b><span className="icon-star-empty" />{player.points}&nbsp;</b>
-          <LittleCardCounts cards={player.cards} />
+          <LittleCardCounts cards={player.cards} skipZero={true}/>
         </div>
-        <div>
+        <div className="player-coin-row">
           <span><span className="icon-coin-euro"/>{totalCoins}&nbsp;</span>
-          <LittleCoins coins={player.coins} golds={player.golds} />
+          <LittleCoins coins={player.coins} golds={player.golds} skipZero={true}/>
         </div>
         <div>
           {

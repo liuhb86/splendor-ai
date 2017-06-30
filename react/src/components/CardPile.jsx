@@ -12,7 +12,7 @@ export default class CardPile extends React.Component {
             </div>
             <div className="card-actions">
               {
-                  this.props.reservable && this.props.remains > 0 &&
+                  this.props.reservable && this.props.remains != 0 &&
                   <button onClick={this.reserve} title="Reserve">
                         <span className="icon-lock" />
                   </button>

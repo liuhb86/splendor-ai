@@ -16,7 +16,7 @@ export default class GameBoard extends React.Component {
                     <NobleArea nobles={state.nobles} player={player} />
                     <CoinArea coins={state.coins} golds={state.golds} player={player} />
                 </div>
-                <CardArea cards={state.cards} remains={game.cardPile.size}
+                <CardArea cards={state.cards} remains={game.cardPile ? game.cardPile.size :[-1,-1,-1]}
                     player={player} hasGold={state.golds > 0}/>
             </div>
             <PlayerArea players={state.players} turn={game.turn}/>
