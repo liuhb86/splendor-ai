@@ -44,6 +44,9 @@ export default class Player extends React.Component {
               <button onClick={this.pass} title="Pass">
                 <span className="icon-arrow-down" />
               </button>
+              <button onClick={this.solve} title="Solve">
+                <span className="icon-android" />
+              </button>
             </span>
           }
         </div>
@@ -69,5 +72,9 @@ export default class Player extends React.Component {
 
   pass = (e) => {
     Request.send("pass",{})
+  }
+
+  solve = (e) => {
+    Request.send("solve", {playerIndex : this.props.index})
   }
 }
