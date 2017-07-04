@@ -11,16 +11,6 @@ case class Player (
                   reserve : Array[VisibleCard]
                   )
 {
-  def calcScore(state : State): Int = {
-    if (points >= 15) {
-      return Param.WINNING_SCORE + points * Param.POINT_VALUE - cards.sum
-    }
-
-    points * Param.POINT_VALUE +
-      coins.sum * Param.COIN_VALUE +
-      cards.sum * Param.CARD_VALUE +
-      golds * Param.GOLD_VALUE
-  }
 
   def coinCount = coins.sum + golds
 

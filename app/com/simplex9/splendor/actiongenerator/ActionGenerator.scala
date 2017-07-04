@@ -15,10 +15,15 @@ object ActionGenerator {
       return Nil
     }
     val estimators = state.players.map(new ValueEstimator(state, _))
+    val buyCardActions = new BuyCardGenerator(state, playerIndex, estimators(playerIndex)).generate()
+    val reserveActions = new ReserveCardGenerator(state, playerIndex, estimators).generate()
+    val takeCoinsActions =  new TakeCoinsGenerator(state, playerIndex, estimators).generate()
     val actions =
-      new BuyCardGenerator(state, playerIndex, estimators(playerIndex)).generate() ++
-    new ReserveCardGenerator(state, playerIndex, estimators).generate() ++
-    new TakeCoinsGenerator(state, playerIndex, estimators).generate()
+      if (state.players(playerIndex).coinCount <= Param.MAX_COIN - 3) {
+        buyCardActions ++ takeCoinsActions ++ reserveActions
+      } else {
+        buyCardActions ++ reserveActions ++ takeCoinsActions
+      }
 
     checkFreeNoble(state, playerIndex, estimators, actions)
   }

@@ -26,7 +26,7 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
     if (topActions.last._2 > 0) result
     else {
       val nop = Action(playerIndex, None, 0, None, reserve = false, None)
-      nop :: result
+      result :+ nop
     }
   }
 

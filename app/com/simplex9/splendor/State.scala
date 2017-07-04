@@ -11,17 +11,6 @@ case class State (
                    players: Array[Player]
                  )
 {
-  def calcScore(iPlayer : Int): Int = {
-    var maxOpponent = -Param.INF
-    for (i <- players.indices) {
-      if (i != iPlayer) {
-        val score = players(i).calcScore(this)
-        if (score > maxOpponent) maxOpponent = score
-      }
-    }
-    players(iPlayer).calcScore(this) - maxOpponent
-  }
-
 
   def transform(action: Action) : State = {
     val newCoins =
