@@ -43,6 +43,9 @@ class GameController extends Controller {
       System.out.println(solutions.take(5))
       val action = solutions.head._1
       Game.game.takeAction(action)
+      if (Game.game.autoMode) {
+        Game.game.pass()
+      }
       Ok(GameResponse(Game.game).serialize())
     } else {
       Ok(GameResponse(Game.game, "no valid action").serialize())

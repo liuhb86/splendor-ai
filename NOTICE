@@ -1,4 +1,4 @@
-Original Game Design by Marc André
+Original Game Design of Splendor by Marc André
 Copyright © 2016 SPACE Cowboys.
 Please buy the game to support the author!
 
@@ -15,4 +15,16 @@ under BSD License
 Redux (http://redux.js.org/)
 under MIT License
 
-Developed with InteliJ IDEA and Visual Studio Code
+IcoMoon (https://icomoon.io/)
+© 2017 Roonas. All Rights Reserved.
+under GPL / CC BY 4.0
+
+
+References
+
+Richard E. Korf, Multi-player alpha-beta pruning, Artificial Intelligence, Volume 48, Issue 1, 1991, Pages 99-111, ISSN 0004-3702, http://dx.doi.org/10.1016/0004-3702(91)90082-U.
+
+Nathan R. Sturtevant, Multi-Player Games: Algorithms and Approaches, Ph.D. dissertation, UCLA, 2003
+
+
+Developed with IntelliJ IDEA and Visual Studio Code

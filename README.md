@@ -1,9 +1,9 @@
 # splendor-ai
-A simple AI for board game Splendor
+A simple AI for board game [Splendor](http://www.spacecowboys.fr/splendor/language:eng)
 
 <img src="http://t.simplex9.com/splendor.png" alt="screenshot" width="500" height="280">
 
-## Getting the dependences
+## Getting the dependencies
 * [Java 8](https://www.java.com/en/download/)
 * [Scala](https://www.scala-lang.org/download/)
 * [sbt](http://www.scala-sbt.org/download.html)
