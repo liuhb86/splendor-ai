@@ -13,6 +13,10 @@ case class Noble(
   val totalCards = cards.sum
   @JsonIgnore
   val cardScore = cards.map (c => Param.NOBLE_POINT * Param.POINT_VALUE * c / totalCards )
+
+  override def toString: String = {
+    s"NOBLE: ${Util.colorArrayToString(cards)}"
+  }
 }
 
 object Noble {

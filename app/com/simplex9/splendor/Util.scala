@@ -32,4 +32,16 @@ object Util {
   def deleteLastFromArray[T : ClassTag](arr: Array[T]) : Array[T] = {
     deleteFromArray(arr, arr.length -1)
   }
+
+  val colorInitial= Array("W","B", "G", "R", "O")
+  def colorArrayToString(arr : Array[Short]): String = {
+    val buffer = new StringBuilder
+    for (i <- arr.indices) {
+      if (arr(i) != 0) {
+        buffer.append(colorInitial(i))
+        buffer.append(arr(i))
+      }
+    }
+    if (buffer.nonEmpty) buffer.toString() else "-"
+  }
 }
