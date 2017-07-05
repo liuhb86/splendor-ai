@@ -23,10 +23,10 @@ class TakeCoinsGenerator(state: State, playerIndex: Int, estimators: Array[Value
       .sortWith(_._2 > _._2)
       .take(Param.TOP_ACTIONS_FOR_TAKE_COIN)
     val result = topActions.map(t => Action(playerIndex, Some(t._1), 0, None, reserve = false, None))
-    if (topActions.last._2 > 0) result
+    if (topActions.nonEmpty && topActions.last._2 > 0) result
     else {
       val nop = Action(playerIndex, None, 0, None, reserve = false, None)
-      nop :: result
+      result :+ nop
     }
   }
 

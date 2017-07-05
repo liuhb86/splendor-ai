@@ -17,7 +17,7 @@ class ReservedCard extends React.Component {
           (<div>???</div>)
         }
         {
-          canAfford(this.props.card, this.props.player) &&
+          this.props.active && canAfford(this.props.card, this.props.player) &&
           <button onClick={this.buy}title="Buy">
             <span className="icon-cart" />
           </button>
@@ -62,7 +62,7 @@ export default class Player extends React.Component {
           {
             player.reserve.map((reserveCard, index) => (
                 <ReservedCard key={index} index={index} 
-                  card={reserveCard} player={this.props.player} />
+                  card={reserveCard} player={this.props.player} active={this.props.active} />
             ))
           }
         </div>

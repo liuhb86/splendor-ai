@@ -10,7 +10,7 @@ class BuyCardGenerator(state : State, playerIndex: Int, estimator: ValueEstimato
   val player = state.players(playerIndex)
 
   def generate() : List[Action] = {
-    estimator.cardEstimator.values.flatMap(checkCard(_)).toList
+    estimator.cardEstimator.values.flatMap(checkCard).sortWith(_._2 > _._2).map(_._1).toList
   }
 
   def checkNobles(nobles : Array[Noble], color : Color.Color) : Option[Noble] = {
@@ -21,7 +21,7 @@ class BuyCardGenerator(state : State, playerIndex: Int, estimator: ValueEstimato
     None
   }
 
-  def checkCard(cardValue : CardValueEstimator.CardValue) : Option[Action] = {
+  def checkCard(cardValue : CardValueEstimator.CardValue) : Option[(Action, Int)] = {
     val card = cardValue.card
     if (card == null || card.isSecret) return None // an empty space or a secret reserve card
 
@@ -34,6 +34,8 @@ class BuyCardGenerator(state : State, playerIndex: Int, estimator: ValueEstimato
         (-Math.min(player.coins(color), Math.max(card.price(color) - player.cards(color), 0))).toShort
     }
     val noble = checkNobles(state.nobles, card.color)
-    Some(Action(playerIndex, Some(coins), (-cardValue.lack).toShort, Some(card), reserve = false, noble))
+    Some((
+      Action(playerIndex, Some(coins), (-cardValue.lack).toShort, Some(card), reserve = false, noble),
+        cardValue.value))
   }
 }

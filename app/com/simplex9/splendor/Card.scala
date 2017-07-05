@@ -11,6 +11,10 @@ case class Card(
                price : Array[Short]
                ) {
   def isSecret = point < 0
+
+  override def toString: String = {
+    s"(${Util.colorInitial(color.id)}$point) ${Util.colorArrayToString(price)}"
+  }
 }
 
 object Card {

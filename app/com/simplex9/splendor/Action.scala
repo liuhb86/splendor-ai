@@ -11,4 +11,28 @@ case class Action(
             reserve: Boolean,
             noble : Option[Noble]
             ) {
+  override def toString: String = {
+    val buffer = new StringBuilder
+    buffer.append(s"$playerIndex:")
+    if (card.isDefined) {
+      if (reserve) {
+        buffer.append(" RSV:")
+      } else {
+        buffer.append(" BUY:")
+      }
+      buffer.append(card.toString)
+    }
+    if (coins.isDefined) {
+      buffer.append(" COIN:")
+      buffer.append(Util.colorArrayToString(coins.get))
+    }
+    if (gold !=0 ) {
+      buffer.append(s" GOLD:$gold")
+    }
+    if (noble.isDefined) {
+      buffer.append(" ")
+      buffer.append(noble.get.toString)
+    }
+    buffer.toString()
+  }
 }

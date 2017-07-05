@@ -8,7 +8,7 @@ import scala.util.Random
 /**
   * Created by hongbo on 6/10/17.
   */
-class Game (val numPlayers: Int, autoMode: Boolean) {
+class Game (val numPlayers: Int, val autoMode: Boolean) {
 
   var turn : Int = 0
 
