@@ -43,6 +43,26 @@ case class Player (
     Player(newCards, newCoions, newGold, newPoints, newReserve)
   }
 
+  def getDominateReserveColor():Array[Short] = {
+    val dominateColorsInReservedCard = Array[Short](0,0,0,0,0)
+    for(j <- reserve.indices){
+      val cardPrice = reserve(j).price
+      var maxLack = 0
+      var dominateColor = -1
+      for (k <- cardPrice.indices) {
+        val diff = cardPrice(k) - cards(k) - coins(k)
+        if(diff >= Param.MAX_DOMINATE_COLOR_LACK_FOR_RESERVE && diff > maxLack){
+          maxLack = diff
+          dominateColor = k
+        }
+      }
+      if(dominateColor >= 0) {
+        dominateColorsInReservedCard(dominateColor) = (dominateColorsInReservedCard(dominateColor) + 1).toShort
+      }
+    }
+    dominateColorsInReservedCard
+  }
+
   def removeReservedCard(pos : Int) : Array[VisibleCard] = {
     val newReserve = new Array[VisibleCard](reserve.length - 1)
     for (i <- 0 until pos) {
