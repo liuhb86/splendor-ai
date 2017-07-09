@@ -9,15 +9,29 @@ class CoinValueEstimator(state: State, player: Player, cardEstimator: CardValueE
   val values = estimate()
 
   def estimate() = {
+    var curPlayerID = 0
+    for (i <- state.players.indices) {
+      if (state.players(i) == player) {
+        curPlayerID = i;
+      }
+    }
+    val nextPlayerID = (curPlayerID + 1) % state.players.length
+    val curPlayerDominateColorsInReservedCard = state.players(curPlayerID).getDominateReserveColor
+    val nextPlayerDominateColorsInReservedCard = state.players(nextPlayerID).getDominateReserveColor
+
     val values = new Array[Int] (Color.size)
     val topCards = cardEstimator.values.take(Param.TOP_CARDS_FOR_COIN_ESTIMATE)
     for (cardInfo <- topCards) {
       if (cardInfo.lack > 0) {
         val required = cardInfo.lack > player.golds
         for (color <- player.coins.indices) {
-          val diff = cardInfo.card.price(color) - player.cards(color) - player.coins(color)
+          var diff = cardInfo.card.price(color) - player.cards(color) - player.coins(color)
           var value = 0
           if (diff > 0) {
+            if(cardInfo.card.isReserved && curPlayerDominateColorsInReservedCard(color) > 0){
+              //reserved by me and is dominate color
+              diff = (diff * Param.SELF_DOMINATE_COIN_VALUE_RATE).toInt
+            }
             value = cardInfo.value * diff / cardInfo.lack
             if (!required) value = value / 2
           }
@@ -25,6 +39,12 @@ class CoinValueEstimator(state: State, player: Player, cardEstimator: CardValueE
         }
       }
     }
+    for (color <- nextPlayerDominateColorsInReservedCard.indices) {
+      if(nextPlayerDominateColorsInReservedCard(color) > 0) {
+        values(color) = (values(color) * Param.NEXT_PLAYER_DOMINATE_COIN_VALUE_RATE).toInt
+      }
+    }
+
     values
   }
 }

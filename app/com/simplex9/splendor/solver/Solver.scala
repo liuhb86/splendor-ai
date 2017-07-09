@@ -16,19 +16,24 @@ class Solver(state: State, playerIndex: Int, startPlayer: Int) {
     var bestAction : List[Action] = Nil
     var bestScore : Int = -Param.INF
     var maxLevel = 0
+    var bestLevel = 0
     while (searchedLevel == maxLevel) {
       try {
         maxLevel += 1
         val (score, action) = search(state, playerIndex, 0, maxLevel, -Param.INF, Param.INF)
-        bestAction = action
-        bestScore = score
+      //  if(score > bestScore) {
+          bestAction = action
+          bestScore = score
+          bestLevel = searchedLevel
+      //  }
       } catch {
         case e : LimitReachedException =>
-          System.out.println(s"* Level=${maxLevel -1} Score=$bestScore pruned=$pruned")
+          System.out.println(s"* Max Level=${maxLevel -1} Score=$bestScore pruned=$pruned")
           for (action <- bestAction) {
             System.out.println("  " + action)
           }
           return bestAction.headOption
+        case e: Exception => System.out.print(e.getStackTrace.mkString("\n"))
       }
     }
     bestAction.headOption
@@ -47,7 +52,7 @@ class Solver(state: State, playerIndex: Int, startPlayer: Int) {
 
     if (isLeaf) {
       var score = StateEvaluator.evaluate(state, playerIndex)
-      if (isMinNode) score = -score
+      //if (isMinNode && score > 0) score = -score
       return (score, Nil)
     }
 
@@ -59,8 +64,19 @@ class Solver(state: State, playerIndex: Int, startPlayer: Int) {
       var beta = _beta
       for (action <- actions) {
         val newState = state.transform(action)
-        val (score, nextActions) = search(newState, nextPlayer(currentPlayerIndex), level + 1, maxLevel,
+        var (score, nextActions) = search(newState, nextPlayer(currentPlayerIndex), level + 1, maxLevel,
           _alpha, beta)
+        if(action.coins.isDefined && !action.card.isDefined){
+          val coinNum = action.coins.get.sum
+          if(coinNum >= 0) {
+            //get less coin from bank, punish it
+            //we punish reserve in the state evaluator
+            score += Param.TAKE_COIN_PENALTY(coinNum)
+          }
+        }
+        if (!action.noble.isDefined && !action.coins.isDefined && !action.reserve) {
+          score += Param.NON_OP_PUNISH_SCORE
+        }
         if (score < minVal) {
           minVal = score
           bestAction = action :: nextActions
@@ -78,8 +94,17 @@ class Solver(state: State, playerIndex: Int, startPlayer: Int) {
       var alpha = _alpha
       for (action <- actions) {
         val newState = state.transform(action)
-        val (score, nextActions) = search(newState, nextPlayer(currentPlayerIndex), level + 1, maxLevel,
+        var (score, nextActions) = search(newState, nextPlayer(currentPlayerIndex), level + 1, maxLevel,
           alpha, _beta)
+        if(action.coins.isDefined && !action.card.isDefined){
+          val coinNum = action.coins.get.sum
+          if(coinNum >= 0) {
+            score -= Param.TAKE_COIN_PENALTY(coinNum)
+          }
+        }
+        if (!action.noble.isDefined && !action.coins.isDefined && !action.reserve) {
+          score -= Param.NON_OP_PUNISH_SCORE
+        }
         if (score > maxVal) {
           maxVal = score
           bestAction = action :: nextActions
