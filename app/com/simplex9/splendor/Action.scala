@@ -20,7 +20,7 @@ case class Action(
       } else {
         buffer.append(" BUY:")
       }
-      buffer.append(card.toString)
+      buffer.append(card.get.toString)
     }
     if (coins.isDefined) {
       buffer.append(" COIN:")

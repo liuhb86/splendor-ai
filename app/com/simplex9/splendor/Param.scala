@@ -27,8 +27,8 @@ object Param {
   val TOP_ACTIONS_FOR_TAKE_COIN = 6
 
   val OPPONENT_VALUE_RATE = 0.8
-  val VALUE_RATE = Array(.9, .8, .5, .2, .1)
-  val RESERVE_VALUE_RATE = Array(.95, .85, .7, .5, .2, .1)
+  val VALUE_RATE = Array(.7, .5, .3, .2, .1)
+  val RESERVE_VALUE_RATE = Array(.8, .7, .5, .3, .2, .1)
 
   val MAX_SEARCH_STATES = 100000
 }
