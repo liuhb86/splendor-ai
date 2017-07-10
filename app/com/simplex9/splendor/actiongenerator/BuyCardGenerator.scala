@@ -28,10 +28,6 @@ class BuyCardGenerator(state : State, playerIndex: Int, estimator: ValueEstimato
     // cannot afford
     if (cardValue.lack > player.golds) return None
 
-    val cardValueCostRateGood = (card.point == 0) ||
-      (card.point.toFloat / card.price.sum >= Param.MIN_VALUE_COST_RATION_TO_RESERVE)
-    if(!cardValueCostRateGood) return None
-
     val coins = new Array[Short](card.price.length)
     for (color <- card.price.indices) {
       coins(color) =
