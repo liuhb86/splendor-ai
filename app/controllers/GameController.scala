@@ -1,6 +1,6 @@
 package controllers
 
-import com.simplex9.splendor.Game
+import com.simplex9.splendor.{Deck, Game, Util, VisibleCard}
 import com.simplex9.splendor.solver.Solver
 import play.api.mvc.{Action, BodyParsers, Controller}
 import reqeusts._
@@ -55,5 +55,22 @@ class GameController extends Controller {
     Game.game.undo()
     val response = GameResponse(Game.game).serialize()
     Ok(response)
+  }
+
+  def getDeck() = Action {
+    Ok(Serializer.toString(Deck))
+  }
+
+  def updateCard() = Action(BodyParsers.parse.tolerantText) { r =>
+    val request = Serializer.toObject(r.body, classOf[updateCardRequest])
+    val visibleCard = new VisibleCard(request.card, request.cardGroup, request.cardIndex)
+    Game.game.state = Game.game.state.setCard(visibleCard, request.playerIndex)
+    Ok(GameResponse(Game.game).serialize())
+  }
+
+  def updateNoble() = Action(BodyParsers.parse.tolerantText) { r =>
+    val request = Serializer.toObject(r.body, classOf[updateCardRequest])
+    Game.game.state = Game.game.state.setNoble(request.cardIndex, request.noble)
+    Ok(GameResponse(Game.game).serialize())
   }
 }

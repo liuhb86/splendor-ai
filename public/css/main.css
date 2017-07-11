@@ -187,3 +187,36 @@
 .action-list-item.band {
     background: lightgrey;
 }
+
+.editor-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: lightgrey;
+    border: solid 1px grey;
+}
+
+.editor-column {
+    margin: 10px;
+    width: 200px;
+}
+
+.editor-column-noble {
+    margin: 10px;
+    width: 100px;
+}
+
+.editor-item {
+    margin: 10px;
+}
+
+.editor-item.used {
+    text-decoration: line-through;
+}
+
+.editor-item:hover {
+    border: dotted 1px black;
+    cursor: pointer;
+}

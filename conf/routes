@@ -7,10 +7,14 @@
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /                    controllers.Assets.at(path = "/public", file = "index.html")
-GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 POST    /init                controllers.GameController.init
 POST    /pass                controllers.GameController.pass
 POST    /action              controllers.GameController.action
 POST    /solve               controllers.GameController.solve
 POST    /undo                controllers.GameController.undo
+GET    /deck                 controllers.GameController.getDeck
+POST    /updateCard          controllers.GameController.updateCard
+POST    /updateNoble          controllers.GameController.updateNoble
+
+GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)

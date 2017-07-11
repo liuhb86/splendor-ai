@@ -7,15 +7,15 @@ object Deck {
   val nobles = Array(
     //    w,b,g,r,o
     Noble(4,4,0,0,0),
-    Noble(0,0,4,4,0),
-    Noble(3,0,0,3,3),
-    Noble(0,3,3,3,0),
-    Noble(3,3,0,0,3),
     Noble(4,0,0,0,4),
     Noble(0,4,4,0,0),
-    Noble(0,0,3,3,3),
+    Noble(0,0,4,4,0),
+    Noble(0,0,0,4,4),
     Noble(3,3,3,0,0),
-    Noble(0,0,0,4,4)
+    Noble(3,3,0,0,3),
+    Noble(3,0,0,3,3),
+    Noble(0,3,3,3,0),
+    Noble(0,0,3,3,3)
   )
 
   val cards = Array(

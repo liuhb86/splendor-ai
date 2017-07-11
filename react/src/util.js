@@ -1,7 +1,15 @@
 let colors = ["WHITE", "BLUE", "GREEN", "RED", "ONYX", "YELLOW"]
+let colorMap = {}
+for (var i in colors) {
+    colorMap[colors[i]] = i
+}
 
 export function toColorClass(i) {
     return colors[i]
+}
+
+export function toColorIndex(color) {
+    return colorMap[color]
 }
 
 export function sum(arr) {

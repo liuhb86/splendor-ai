@@ -108,7 +108,7 @@ class Game (val numPlayers: Int, val autoMode: Boolean) {
       if (!(card.isInPile || card.isReserved)) {
         val (newCard, newPile) = cardPile.take(card.group, card.pos)
         cardPile = newPile
-        state = state.setCard(newCard)
+        state = state.setCard(newCard, action.playerIndex)
       }
     }
     addAction(adjustedAction)

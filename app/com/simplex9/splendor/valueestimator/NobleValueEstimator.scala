@@ -9,12 +9,12 @@ import scala.collection.mutable.ArrayBuffer
   * Created by hongbo on 6/18/17.
   */
 class NobleValueEstimator(state: State, player: Player) {
-  val lastColor = new Array[Option[Color.Color]](state.nobles.length)
+  val lastColor = new Array[Option[Color]](state.nobles.length)
   val satisfy = new Array[Boolean](state.nobles.length)
   val values = estimate()
 
   def estimate() = {
-    val lastColorBuf = ArrayBuffer[Option[Color.Color]]()
+    val lastColorBuf = ArrayBuffer[Option[Color]]()
     val satisfyBuf = ArrayBuffer[Boolean]()
     val values = new Array[Int](player.coins.length)
     for (noble <- state.nobles) {
@@ -32,7 +32,7 @@ class NobleValueEstimator(state: State, player: Player) {
       }
 
       val color =
-        if (totalLacks == 1) Some(Color(lacks.indexOf(1)))
+        if (totalLacks == 1) Some(Color.getColor(lacks.indexOf(1)))
         else None
       lastColorBuf += color
       satisfyBuf += (totalLacks == 0)

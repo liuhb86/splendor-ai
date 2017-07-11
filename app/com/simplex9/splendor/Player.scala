@@ -1,5 +1,7 @@
 package com.simplex9.splendor
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 /**
   * Created by hongbo on 6/10/17.
   */
@@ -11,6 +13,7 @@ case class Player (
                   reserve : Array[VisibleCard]
                   )
 {
+
 
   def coinCount = coins.sum + golds
 
@@ -43,6 +46,7 @@ case class Player (
     Player(newCards, newCoions, newGold, newPoints, newReserve)
   }
 
+  @JsonIgnore
   def getDominateReserveColor():Array[Short] = {
     val dominateColorsInReservedCard = Array[Short](0,0,0,0,0)
     for(j <- reserve.indices){
@@ -72,5 +76,10 @@ case class Player (
       newReserve(i - 1) = reserve(i).reserve(i - 1)
     }
     newReserve
+  }
+
+  def updateReservedCard(newCard: VisibleCard): Player = {
+    val newReserve = Util.updateArray(reserve, newCard.pos, newCard)
+    Player(cards, coins, golds, points, newReserve)
   }
 }

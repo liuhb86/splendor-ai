@@ -2,6 +2,7 @@ import React from 'react'
 import {toColorClass} from '../util'
 import classNames from 'classnames'
 import * as Request from '../request'
+import editor from '../editor'
 
 export default class Noble extends React.Component {
   render () {
@@ -35,6 +36,12 @@ export default class Noble extends React.Component {
             </div>
             <div className="points">3</div>
             <div className="card-actions">
+                {
+                    editor.exists() &&
+                    <button onClick={this.edit} title="Edit">
+                        <span className="icon-pencil" />
+                    </button>
+                }
                 { satisfy &&
                     <button onClick={this.take} title="Take">
                         <span className="icon-plus" />
@@ -47,8 +54,14 @@ export default class Noble extends React.Component {
 
   renderEmptyNoble() {
       return (
-        <div className="noble">  
+        <div className="noble" onClick={this.edit}>  
             <div className="card-actions">
+                {
+                    editor.exists() &&
+                    <button onClick={this.edit} title="Edit">
+                        <span className="icon-pencil" />
+                    </button>
+                }
             </div>
         </div>
       )
@@ -56,5 +69,9 @@ export default class Noble extends React.Component {
 
   take = (e) => {
       Request.sendAction({nobleIndex: this.props.index})
+  }
+
+  edit = (e) => {
+      editor.chooseNoble(this.props.index)
   }
 }

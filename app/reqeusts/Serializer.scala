@@ -1,6 +1,6 @@
 package reqeusts
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
 import scala.reflect.ClassTag
@@ -10,6 +10,7 @@ import scala.reflect.ClassTag
   */
 object Serializer {
     val mapper = new ObjectMapper()
+      .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
     mapper.registerModule(DefaultScalaModule)
     val jsonWriter = mapper.writer()
 

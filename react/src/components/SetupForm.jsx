@@ -1,5 +1,6 @@
 import React from 'react'
 import * as request from '../request'
+import editor from '../editor'
 
 export default class SetupForm extends React.Component {
     constructor(props) {
@@ -34,6 +35,7 @@ export default class SetupForm extends React.Component {
     }
 
     submit = (e) => {
+        if (this.state.autoMode) editor.clear(); else editor.init()
         request.send("init", this.state)
     }
 

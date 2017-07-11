@@ -1,7 +1,5 @@
 package com.simplex9.splendor
 
-import com.simplex9.splendor.Color.Color
-
 /**
   * Created by hongbo on 6/10/17.
   */

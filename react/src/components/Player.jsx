@@ -6,6 +6,7 @@ import LittleCoins from './LittleCoins.jsx'
 import LittleCard from './LittleCard.jsx'
 import * as Request from '../request'
 import settings from '../settings'
+import editor from '../editor'
 
 class ReservedCard extends React.Component {
   render() {
@@ -17,7 +18,13 @@ class ReservedCard extends React.Component {
           (<div>???</div>)
         }
         {
-          this.props.active && canAfford(this.props.card, this.props.player) &&
+          editor.exists() &&
+              <button onClick={this.edit} title="Edit">
+                  <span className="icon-pencil" />
+              </button>
+        }
+        {
+          this.props.active && !this.props.card.secret && canAfford(this.props.card, this.props.player) &&
           <button onClick={this.buy}title="Buy">
             <span className="icon-cart" />
           </button>
@@ -28,6 +35,10 @@ class ReservedCard extends React.Component {
 
   buy = (e) => {
     Request.sendBuyAction(this.props.card, -1, this.props.index, this.props.player)
+  }
+
+  edit = (e) => {
+    editor.chooseCards(this.props.card.group, this.props.index, this.props.playerIndex)
   }
 }
 
@@ -61,8 +72,8 @@ export default class Player extends React.Component {
         <div>
           {
             player.reserve.map((reserveCard, index) => (
-                <ReservedCard key={index} index={index} 
-                  card={reserveCard} player={this.props.player} active={this.props.active} />
+                <ReservedCard key={index} index={index} card={reserveCard} 
+                  playerIndex={this.props.index} player={this.props.player} active={this.props.active} />
             ))
           }
         </div>

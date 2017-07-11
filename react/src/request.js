@@ -14,7 +14,23 @@ export function send(endpoint, data) {
                 console.log(result.error)
             } else {
                 store.dispatch(updateStateAction(result))
-            }}
+            }
+        }
+    })
+}
+
+export function get(endpoint, callback) {
+    $.ajax(endpoint, {
+        method : 'GET',
+        contentType: 'application/json',
+        dataType : "json",
+        success : function(result) {
+            if (result.error) {
+                console.log(result.error)
+            } else {
+                callback(result)
+            }
+        }
     })
 }
 

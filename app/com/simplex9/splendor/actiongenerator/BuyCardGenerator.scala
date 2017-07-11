@@ -13,7 +13,7 @@ class BuyCardGenerator(state : State, playerIndex: Int, estimator: ValueEstimato
     estimator.cardEstimator.values.flatMap(checkCard).sortWith(_._2 > _._2).map(_._1).toList
   }
 
-  def checkNobles(nobles : Array[Noble], color : Color.Color) : Option[Noble] = {
+  def checkNobles(nobles : Array[Noble], color : Color) : Option[Noble] = {
     val lastColor = estimator.nobleEstimator.lastColor
     for (i <- nobles.indices) {
       if (lastColor(i).isDefined && lastColor(i).get == color) return Some(nobles(i))
