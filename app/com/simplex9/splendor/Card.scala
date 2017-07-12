@@ -4,6 +4,7 @@ package com.simplex9.splendor
   * Created by hongbo on 6/10/17.
   */
 case class Card(
+               level : Int,
                color : Color,
                point : Short,
                price : Array[Short]
@@ -16,8 +17,7 @@ case class Card(
 }
 
 object Card {
-  def apply(color:Color, point: Short,
+  def apply(level: Int, color:Color, point: Short,
             white:Short, byte:Short, green:Short, red:Short, onyx: Short) : Card =
-    Card(color, point, Array(white, byte, green, red, onyx))
-  final val secretCard = Card(null, -1, null)
+    Card(level, color, point, Array(white, byte, green, red, onyx))
 }

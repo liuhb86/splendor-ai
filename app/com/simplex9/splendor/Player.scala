@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
   * Created by hongbo on 6/10/17.
   */
 case class Player (
+                  playerIndex: Int,
                   cards : Array[Short],
                   coins : Array[Short],
                   golds : Short,
@@ -37,13 +38,13 @@ case class Player (
       else {
         val card = action.card.get
         if (action.reserve) {
-          reserve :+ card.reserve(reserve.length)
+          reserve :+ card.reserve(playerIndex, reserve.length)
         } else {
           // buy reserved card
           removeReservedCard(card.pos)
         }
       }
-    Player(newCards, newCoions, newGold, newPoints, newReserve)
+    Player(playerIndex, newCards, newCoions, newGold, newPoints, newReserve)
   }
 
   @JsonIgnore
@@ -73,13 +74,13 @@ case class Player (
       newReserve(i) = reserve(i)
     }
     for (i<- pos + 1 until reserve.length) {
-      newReserve(i - 1) = reserve(i).reserve(i - 1)
+      newReserve(i - 1) = reserve(i).reserve(playerIndex, i - 1)
     }
     newReserve
   }
 
   def updateReservedCard(newCard: VisibleCard): Player = {
     val newReserve = Util.updateArray(reserve, newCard.pos, newCard)
-    Player(cards, coins, golds, points, newReserve)
+    Player(playerIndex, cards, coins, golds, points, newReserve)
   }
 }

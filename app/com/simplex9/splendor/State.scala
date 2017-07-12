@@ -33,12 +33,12 @@ case class State (
     State(newCards, newNobles, newCoins, newGold, newPlayers)
   }
 
-  def setCard(newCard: VisibleCard, playerIndex: Int): State = {
+  def setCard(newCard: VisibleCard): State = {
       if (!newCard.isReserved) {
         val newCards = Util.updateArray(cards, newCard.getOffset, newCard)
         State(newCards, nobles, coins, golds, players)
       } else {
-        val newPlayers = Util.updateArray(players, playerIndex, (p : Player) => p.updateReservedCard(newCard))
+        val newPlayers = Util.updateArray(players, newCard.reservedBy, (p : Player) => p.updateReservedCard(newCard))
         State(cards, nobles, coins, golds, newPlayers)
       }
   }

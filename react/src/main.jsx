@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import store from './store'
 import settings from './settings'
 import editor from './editor'
+import * as request from './request'
 import SplendorApp from './components/SplendorApp.jsx'
 
 function renderApp() { 
@@ -14,7 +15,5 @@ function renderApp() {
 
 store.subscribe(renderApp)
 renderApp()
-import * as Request from './request'
-//Request.send("init", {players: 3, autoMode: true})
 
-export {store, settings, editor}
+export {store, settings, editor, request}

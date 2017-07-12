@@ -9,10 +9,12 @@ object ActionRequestConverter {
   def toAction(r: ActionRequest, game : Game) : Action = {
     val playerIndex = game.turn
     val card =
-      if (r.cardGroup < -1) None
-      else if (r.cardGroup == -1) {
+      if (r.cardReserved) {
         Option(game.state.players(playerIndex).reserve(r.cardIndex))
-      } else if (r.cardIndex < 0) {
+      } else if (r.cardGroup < 0) {
+        None
+      }
+      else if (r.cardIndex < 0) {
         Option(VisibleCard.newCardInPile(r.cardGroup))
       } else {
         Option(game.state.cards(VisibleCard.getOffset(r.cardGroup, r.cardIndex)))

@@ -73,7 +73,8 @@ export default class Card extends React.Component {
         this.props.card,
         this.props.group,
         this.props.index,
-        this.props.player
+        this.props.player,
+        false
     )
   }
 

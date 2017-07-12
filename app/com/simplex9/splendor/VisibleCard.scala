@@ -7,19 +7,19 @@ import com.fasterxml.jackson.annotation.{JsonIgnore, JsonIgnoreProperties}
   */
 @JsonIgnoreProperties(Array("pos"))
 class VisibleCard (card: Card,
-                   val group: Int,
-                  val pos: Int) extends Card(card.color, card.point, card.price) {
+                  val pos: Int,
+                  val reservedBy: Int) extends Card(card.level, card.color, card.point, card.price) {
   @JsonIgnore
-  def isReserved = group < 0
+  def isReserved = reservedBy >= 0
   @JsonIgnore
   def isInPile = pos < 0
-  def reserve(pos: Int) = new VisibleCard(card, -(group + 1), pos)
+  def reserve(playerIndex: Int, pos: Int) = new VisibleCard(card, pos, playerIndex)
   @JsonIgnore
-  def getOffset = VisibleCard.getOffset(group, pos)
+  def getOffset = VisibleCard.getOffset(level, pos)
 }
 
 object VisibleCard {
-  def newCardInPile(card: Card, group: Int) :VisibleCard = new VisibleCard(card, group, -1)
-  def newCardInPile(group: Int) : VisibleCard= newCardInPile(Card.secretCard, group)
+  def newCardInPile(card: Card) :VisibleCard = new VisibleCard(card, -1, -1)
+  def newCardInPile(group: Int) : VisibleCard= newCardInPile(Card(group, null, -1, null))
   def getOffset(group : Int, pos : Int) : Int = group * Param.NUM_CARD_EACH_LEVEL + pos
 }

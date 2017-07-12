@@ -34,11 +34,11 @@ class ReservedCard extends React.Component {
   }
 
   buy = (e) => {
-    Request.sendBuyAction(this.props.card, -1, this.props.index, this.props.player)
+    Request.sendBuyAction(this.props.card, -1, this.props.index, this.props.player, true)
   }
 
   edit = (e) => {
-    editor.chooseCards(this.props.card.group, this.props.index, this.props.playerIndex)
+    editor.chooseCards(this.props.card.level, this.props.index, this.props.playerIndex)
   }
 }
 

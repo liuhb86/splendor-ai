@@ -53,19 +53,22 @@ class Game (val numPlayers: Int, val autoMode: Boolean) {
     val cards = initCards()
     val nobles = initNoble()
     val numCoins = Param.NUM_COIN(numPlayers)
-    val newPlayer = Player(
-      Seq.fill(Color.size)(0.toShort).toArray,
-      Seq.fill(Color.size)(0.toShort).toArray,
-      0,
-      0,
-      Array()
-    )
+    val players = (0 until numPlayers).map(i =>
+      Player(
+        i,
+        Seq.fill(Color.size)(0.toShort).toArray,
+        Seq.fill(Color.size)(0.toShort).toArray,
+        0,
+        0,
+        Array()
+      )
+    ).toArray
 
     State(
       cards, nobles,
-        Seq.fill(Color.size)(numCoins.toShort).toArray,
+      Seq.fill(Color.size)(numCoins.toShort).toArray,
       Param.NUM_GOLD,
-      Seq.fill(numPlayers)(newPlayer).toArray
+      players
     )
   }
 
@@ -97,7 +100,7 @@ class Game (val numPlayers: Int, val autoMode: Boolean) {
     var adjustedAction = action
     if (autoMode && action.card.isDefined && action.card.get.isInPile) {
       val oldCard = action.card.get
-      val (card, newPile) = cardPile.take(oldCard.group, oldCard.pos)
+      val (card, newPile) = cardPile.take(oldCard.level, oldCard.pos)
       cardPile = newPile
       adjustedAction = Action(action.playerIndex, action.coins, action.gold,
         Option(card), action.reserve, action.noble)
@@ -106,9 +109,9 @@ class Game (val numPlayers: Int, val autoMode: Boolean) {
     if (autoMode && action.card.isDefined) {
       val card = action.card.get
       if (!(card.isInPile || card.isReserved)) {
-        val (newCard, newPile) = cardPile.take(card.group, card.pos)
+        val (newCard, newPile) = cardPile.take(card.level, card.pos)
         cardPile = newPile
-        state = state.setCard(newCard, action.playerIndex)
+        state = state.setCard(newCard)
       }
     }
     addAction(adjustedAction)

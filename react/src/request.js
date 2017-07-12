@@ -38,7 +38,7 @@ export function sendAction(action) {
     send("action", action)
 }
 
-export function sendBuyAction(card, group, index, player) {
+export function sendBuyAction(card, group, index, player, cardReserved) {
     let coins = newColorArray()
     var lack = 0
     for (var i in coins) {
@@ -50,6 +50,7 @@ export function sendBuyAction(card, group, index, player) {
         coins: coins,
         gold: -lack,
         cardGroup: group,
-        cardIndex: index
+        cardIndex: index,
+        cardReserved: cardReserved
     })
 }

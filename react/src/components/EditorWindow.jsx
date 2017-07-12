@@ -78,7 +78,6 @@ export default class EditorWindow extends React.Component {
       card.used = true
       this.close()
       Request.send("updateCard", {
-          cardGroup: this.props.group,
           cardIndex: this.props.index,
           card: card,
           playerIndex: this.props.playerIndex

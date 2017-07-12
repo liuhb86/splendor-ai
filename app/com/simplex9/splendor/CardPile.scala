@@ -9,7 +9,7 @@ class CardPile(cards : Array[Array[Card]]) {
   def getSize = cards.map(_.length)
   def take(group: Int, index: Int) : (VisibleCard, CardPile) = {
     if (cards(group).isEmpty) return (null, this)
-    val card = new VisibleCard(cards(group).last, group, index)
+    val card = new VisibleCard(cards(group).last, index, -1)
     val newCards = Util.updateArray(cards, group, (t : Array[Card])=> Util.deleteLastFromArray(t))
     (card, new CardPile(newCards))
   }

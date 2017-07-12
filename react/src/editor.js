@@ -4,6 +4,7 @@ import { render } from 'react-dom'
 import EditorWindow from './components/EditorWindow.jsx'
 class Editor {
     init() {
+        this.exists = true
         let _self = this
         Request.get("deck", function(deck) {
             _self.deck = deck
@@ -11,11 +12,12 @@ class Editor {
     }
 
     clear() {
-        return this.deck = null 
+        this.exists = false
+        this.deck = null 
     }
 
     exists() {
-        return this.deck != null
+        return this.exists
     }
 
     getNobles () {
@@ -23,9 +25,6 @@ class Editor {
     }
 
     getCards(group) {
-        if (group < 0) {
-            group = -group - 1
-        }
         return this.deck.cards[group]
     }
 

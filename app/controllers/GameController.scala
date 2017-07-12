@@ -63,8 +63,8 @@ class GameController extends Controller {
 
   def updateCard() = Action(BodyParsers.parse.tolerantText) { r =>
     val request = Serializer.toObject(r.body, classOf[updateCardRequest])
-    val visibleCard = new VisibleCard(request.card, request.cardGroup, request.cardIndex)
-    Game.game.state = Game.game.state.setCard(visibleCard, request.playerIndex)
+    val visibleCard = new VisibleCard(request.card, request.cardIndex, request.reservedBy)
+    Game.game.state = Game.game.state.setCard(visibleCard)
     Ok(GameResponse(Game.game).serialize())
   }
 

@@ -8,6 +8,7 @@ public class ActionRequest {
     public short gold = 0;
     public int cardGroup = -2;
     public int cardIndex = -2;
+    public boolean cardReserved = false;
     public boolean reserve = false;
     public int nobleIndex = -2;
 }
